@@ -1,23 +1,18 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
+﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
+
+# Copy everything
+COPY . ./
+# Restore as distinct layers
+RUN dotnet restore
+# Build and publish a release
+RUN dotnet publish -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+
+COPY --from=build-env /app/out .
 EXPOSE 8080
 EXPOSE 8081
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["pfdocker/pfdocker.csproj", "pfdocker/"]
-RUN dotnet restore "pfdocker/pfdocker.csproj"
-COPY . .
-WORKDIR "/src/pfdocker"
-RUN dotnet build "pfdocker.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "pfdocker.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "pfdocker.dll"]

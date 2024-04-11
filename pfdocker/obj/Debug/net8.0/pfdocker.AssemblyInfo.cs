@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("pfdocker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39fbdc6992d3a372bb42d98a2ee2cd8a27c13aa1")]
 [assembly: System.Reflection.AssemblyProductAttribute("pfdocker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("pfdocker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
