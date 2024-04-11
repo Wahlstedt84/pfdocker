@@ -7,7 +7,6 @@ on:
     branches: 
       [ master ]
     paths:
-    - 'Docker/**'
     - '.github/workflows/pfdocker-AutoDeployTrigger-11c24246-1010-40fa-af82-7480e99b29d7.yml'
 
   # Allow manual trigger 
